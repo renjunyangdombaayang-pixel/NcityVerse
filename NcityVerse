@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neo-Zone 💚 | Markas NCTzen Paling Seru</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          colors: {
+            neo: {
+              green: '#B2E800',
+              bright: '#39FF14',
+              dark: '#0A0A0C',
+              card: '#131318',
+              border: '#24242E',
+              u127: '#FF3B30',
+              dream: '#00E5FF',
+              wayv: '#FF2E93',
+              wish: '#A855F7'
+            }
+          },
+          animation: {
+            'float': 'float 4s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2.5s infinite',
+            'spin-slow': 'spin 12s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 15px rgba(178, 232, 0, 0.35)' },
+              '50%': { boxShadow: '0 0 30px rgba(57, 255, 20, 0.7)' },
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #0A0A0C;
+      color: #FFFFFF;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0A0A0C;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #24242E;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #B2E800;
+    }
+
+    /* Neon Grid Background */
+    .neo-grid-bg {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(178, 232, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(178, 232, 0, 0.05) 1px, transparent 1px);
+    }
+
+    .text-glow {
+      text-shadow: 0 0 20px rgba(178, 232, 0, 0.45);
+    }
+
+    .glass-panel {
+      background: rgba(19, 19, 24, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(178, 232, 0, 0.16);
+    }
+
+    /* Confetti particle animation */
+    @keyframes confettiFall {
+      0% { transform: translateY(-20px) rotate(0deg) scale(1); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg) scale(0.5); opacity: 0; }
+    }
+    .confetti-piece {
+      position: fixed;
+      top: -10px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: confettiFall linear forwards;
+    }
+  </style>
+</head>
+<body class="neo-grid-bg antialiased selection:bg-neo-green selection:text-neo-dark">
+
+  <!-- Toast Notification Container (Easter Egg & Feedback) -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-neo-border/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3 flex items-center justify-between gap-2">
+      <!-- Logo (Easter Egg Trigger) -->
+      <button onclick="triggerEasterEgg()" title="Klik untuk kejutan NCT!" class="group flex items-center gap-3 text-left focus:outline-none rounded-2xl p-1.5 hover:bg-white/5 transition">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neo-green to-neo-bright text-neo-dark flex items-center justify-center font-display font-extrabold text-lg shadow-lg shadow-neo-green/30 group-hover:scale-110 group-hover:rotate-6 transition-transform">
+          NCT
+        </div>
+        <div>
+          <span class="font-display font-extrabold text-lg sm:text-xl tracking-tight text-white flex items-center gap-1.5">
+            NEO-ZONE <span class="inline-block w-2 h-2 rounded-full bg-neo-bright animate-ping"></span>
+          </span>
+          <span class="block text-[10px] uppercase tracking-widest text-neo-green font-semibold" data-i18n="nav_easter_hint">Klik logo = Easter Egg 🔊</span>
+        </div>
+      </button>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1 bg-neo-card/90 p-1.5 rounded-2xl border border-neo-border">
+        <a href="#beranda" class="px-4 py-2 rounded-xl text-sm font-semibold text-gray-300 hover:text-neo-dark hover:bg-neo-green transition" data-i18n="nav_home">Beranda</a>
+        <a href="#profil" class="px-4 py-2 rounded-xl text-sm font-semibold text-gray-300 hover:text-neo-dark hover:bg-neo-green transition" data-i18n="nav_about">Profil</a>
+        <a href="#fitur" class="px-4 py-2 rounded-xl text-sm font-semibold text-gray-300 hover:text-neo-dark hover:bg-neo-green transition" data-i18n="nav_features">Fitur & Game</a>
+        <a href="#neowall" class="px-4 py-2 rounded-xl text-sm font-semibold text-gray-300 hover:text-neo-dark hover:bg-neo-green transition" data-i18n="nav_wall">Neo-Wall</a>
+      </nav>
+
+      <!-- Right Actions: Language Switcher & Mobile Menu Button -->
+      <div class="flex items-center gap-2">
+        <!-- Translate Toggle ID <-> EN -->
+        <button id="lang-toggle" onclick="toggleLanguage()" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-neo-card border border-neo-green/40 hover:border-neo-bright text-xs sm:text-sm font-bold text-neo-green transition shadow-sm hover:shadow-neo-green/20 active:scale-95">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+          </svg>
+          <span id="lang-label">ID 🇮🇩</span>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-neo-card border border-neo-border text-gray-200 hover:text-neo-green focus:outline-none" aria-label="Menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 pt-2 border-t border-neo-border bg-neo-dark/95 space-y-1.5">
+      <a href="#beranda" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-200 hover:bg-neo-green hover:text-neo-dark transition" data-i18n="nav_home">Beranda</a>
+      <a href="#profil" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-200 hover:bg-neo-green hover:text-neo-dark transition" data-i18n="nav_about">Profil</a>
+      <a href="#fitur" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-200 hover:bg-neo-green hover:text-neo-dark transition" data-i18n="nav_features">Fitur & Game</a>
+      <a href="#neowall" onclick="toggleMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-200 hover:bg-neo-green hover:text-neo-dark transition" data-i18n="nav_wall">Neo-Wall</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= 1. BERANDA (HERO SECTION) ================= -->
+    <section id="beranda" class="relative pt-14 pb-20 sm:pt-24 sm:pb-28 overflow-hidden">
+      <!-- Ambient Glow Blobs -->
+      <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[520px] h-[520px] bg-neo-green/15 rounded-full blur-[120px] pointer-events-none"></div>
+      <div class="absolute top-40 -right-24 w-72 h-72 bg-neo-dream/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <!-- Floating Neo Bong Badge -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-neo-card border border-neo-green/40 text-neo-green text-xs sm:text-sm font-bold mb-8 animate-float shadow-lg shadow-neo-green/10">
+          <span class="w-2.5 h-2.5 rounded-full bg-neo-bright"></span>
+          <span data-i18n="hero_badge">NEO CULTURE TECHNOLOGY • FANBASE HUB</span>
+        </div>
+
+        <!-- Headline Utama -->
+        <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-tight max-w-4xl mx-auto mb-6 text-white text-glow" data-i18n="hero_headline">
+          Selamat Datang di Markas NCTzen Paling Seru! Neo-Zone Resmi Dibuka 💚
+        </h1>
+
+        <!-- Sub-headline / Sapaan -->
+        <p class="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10" data-i18n="hero_subheadline">
+          Tempat nongkrong digital buat kamu yang hafal semua member, gak pernah absen streaming, dan siap halu bareng setiap hari.
+        </p>
+
+        <!-- Call to Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#fitur" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-neo-green to-neo-bright text-neo-dark font-extrabold text-base sm:text-lg shadow-xl shadow-neo-green/25 hover:scale-105 active:scale-95 transition transform animate-pulse-glow" data-i18n="hero_cta_primary">
+            Masuk ke Neo-Zone 🚀
+          </a>
+          <a href="#profil" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-neo-card hover:bg-white/10 text-white border border-neo-border hover:border-neo-green font-bold text-base sm:text-lg transition" data-i18n="hero_cta_secondary">
+            Mulai Jelajah Sekarang ✨
+          </a>
+        </div>
+
+        <!-- Mini Lightstick SVG Illustration Banner -->
+        <div class="mt-14 max-w-3xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div class="glass-panel rounded-2xl p-4 border-t-2 border-t-neo-u127">
+            <div class="font-display font-extrabold text-xl text-neo-u127">NCT 127</div>
+            <div class="text-xs text-gray-400 mt-1" data-i18n="unit_127_tag">Neo Seoul Vibes 🔥</div>
+          </div>
+          <div class="glass-panel rounded-2xl p-4 border-t-2 border-t-neo-dream">
+            <div class="font-display font-extrabold text-xl text-neo-dream">NCT DREAM</div>
+            <div class="text-xs text-gray-400 mt-1" data-i18n="unit_dream_tag">Yo Dream! 7DREAM 🩵</div>
+          </div>
+          <div class="glass-panel rounded-2xl p-4 border-t-2 border-t-neo-wayv">
+            <div class="font-display font-extrabold text-xl text-neo-wayv">WayV</div>
+            <div class="text-xs text-gray-400 mt-1" data-i18n="unit_wayv_tag">WayZenNi Power 🩷</div>
+          </div>
+          <div class="glass-panel rounded-2xl p-4 border-t-2 border-t-neo-wish">
+            <div class="font-display font-extrabold text-xl text-neo-wish">NCT WISH</div>
+            <div class="text-xs text-gray-400 mt-1" data-i18n="unit_wish_tag">Fresh & Dreamy ⭐</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. PROFIL / TENTANG KAMI ================= -->
+    <section id="profil" class="py-16 sm:py-24 border-t border-neo-border/60 relative">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+          <!-- Left Visual Card: Custom SVG Neo Bong -->
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-full max-w-sm aspect-square rounded-3xl bg-gradient-to-b from-neo-card to-neo-dark border border-neo-green/30 p-8 flex flex-col items-center justify-center shadow-2xl">
+              <div class="absolute inset-0 bg-neo-green/5 rounded-3xl"></div>
+              <!-- Custom SVG Meumwonbom (NCT Lightstick) -->
+              <svg class="w-44 h-44 animate-float drop-shadow-[0_0_25px_rgba(178,232,0,0.65)]" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Cube Head -->
+                <rect x="45" y="20" width="110" height="95" rx="16" fill="#B2E800" stroke="#39FF14" stroke-width="4"/>
+                <rect x="57" y="32" width="86" height="71" rx="10" fill="#0A0A0C"/>
+                <text x="100" y="76" text-anchor="middle" fill="#B2E800" font-family="Space Grotesk, sans-serif" font-weight="800" font-size="30" letter-spacing="2">NCT</text>
+                <!-- Neck -->
+                <rect x="82" y="115" width="36" height="16" rx="4" fill="#E5E7EB"/>
+                <!-- Handle -->
+                <rect x="86" y="131" width="28" height="82" rx="12" fill="#FFFFFF"/>
+                <circle cx="100" cy="156" r="6" fill="#B2E800"/>
+                <!-- Bottom Cap -->
+                <rect x="83" y="205" width="34" height="14" rx="7" fill="#B2E800"/>
+              </svg>
+              <p class="mt-4 font-display font-bold text-sm text-neo-green tracking-wider uppercase">Meumwonbom Ready 💚</p>
+            </div>
+          </div>
+
+          <!-- Right Story Content -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-block px-3.5 py-1.5 rounded-xl bg-neo-green/10 border border-neo-green/30 text-neo-green text-xs font-bold uppercase tracking-wider" data-i18n="about_badge">
+              Tentang Neo-Zone
+            </div>
+
+            <h2 class="font-display font-extrabold text-2xl sm:text-4xl text-white leading-snug" data-i18n="about_title">
+              Dari NCTzen, Oleh NCTzen, Untuk Semua Czennie di Seluruh Dunia!
+            </h2>
+
+            <!-- Kalimat Pengantar (Exact Match) -->
+            <div class="p-6 rounded-2xl bg-neo-card border-l-4 border-neo-green shadow-lg">
+              <p class="text-base sm:text-lg text-gray-200 leading-relaxed font-medium" data-i18n="about_intro">
+                "Siapa kita? Kita adalah sekumpulan NCTzen yang kecanduan suara high note Taeil, senyuman Haechan, dan interaksi random Mark & Johnny di 24h Relay Cam."
+              </p>
+            </div>
+
+            <!-- Misi Website (Exact Match) -->
+            <div class="p-6 rounded-2xl bg-gradient-to-r from-neo-green/15 to-transparent border border-neo-green/30">
+              <div class="flex items-start gap-3.5">
+                <span class="text-2xl">🎯</span>
+                <p class="text-base sm:text-lg text-white font-semibold leading-relaxed" data-i18n="about_mission">
+                  Misi kita cuma satu: Bikin hari-hari kamu lebih berwarna dengan update NCT 24/7 tanpa bikin bosan!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 3. FITUR & MENU INTERAKTIF ================= -->
+    <section id="fitur" class="py-16 sm:py-24 border-t border-neo-border/60 bg-neo-card/30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="inline-block px-3.5 py-1.5 rounded-xl bg-neo-green/10 border border-neo-green/30 text-neo-green text-xs font-bold uppercase tracking-wider mb-3" data-i18n="features_badge">
+            Zona Interaktif
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white" data-i18n="features_title">
+            Jelajahi Wahana Seru Neo-Zone
+          </h2>
+        </div>
+
+        <!-- 3 Feature Navigation Cards (Interactive Tabs) -->
+        <div class="grid md:grid-cols-3 gap-5 mb-10">
+          <!-- Tab 1: Jadwal -->
+          <button onclick="switchFeatureTab('jadwal')" id="tab-btn-jadwal" class="feature-tab-btn text-left p-6 rounded-3xl bg-neo-card border-2 border-neo-green shadow-lg shadow-neo-green/10 transition transform hover:-translate-y-1">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-3xl">📅</span>
+              <span class="px-2.5 py-1 rounded-lg bg-neo-green text-neo-dark text-xs font-extrabold" data-i18n="tab_schedule_tag">TRACKER</span>
+            </div>
+            <h3 class="font-display font-extrabold text-xl text-white mb-2" data-i18n="tab_schedule_title">Menu Jadwal (Comeback Tracker)</h3>
+            <p class="text-sm text-gray-300 leading-relaxed" data-i18n="tab_schedule_desc">
+              Jadwal Halal & Haram Terlewat! Jangan sampai ketinggalan teaser, comeback, atau konser oppa-oppa kesayangan kita.
+            </p>
+          </button>
+
+          <!-- Tab 2: Galeri -->
+          <button onclick="switchFeatureTab('galeri')" id="tab-btn-galeri" class="feature-tab-btn text-left p-6 rounded-3xl bg-neo-card border border-neo-border hover:border-neo-green/60 transition transform hover:-translate-y-1">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-3xl">📸</span>
+              <span class="px-2.5 py-1 rounded-lg bg-white/10 text-neo-green text-xs font-extrabold" data-i18n="tab_gallery_tag">VISUAL</span>
+            </div>
+            <h3 class="font-display font-extrabold text-xl text-white mb-2" data-i18n="tab_gallery_title">Menu Galeri (Neo-Gallery)</h3>
+            <p class="text-sm text-gray-300 leading-relaxed" data-i18n="tab_gallery_desc">
+              Kumpulan visual berbahaya yang siap bikin kamu oleng ke semua member (OT21/OT23/OT26 approved!).
+            </p>
+          </button>
+
+          <!-- Tab 3: Mini Games -->
+          <button onclick="switchFeatureTab('game')" id="tab-btn-game" class="feature-tab-btn text-left p-6 rounded-3xl bg-neo-card border border-neo-border hover:border-neo-green/60 transition transform hover:-translate-y-1">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-3xl">🎮</span>
+              <span class="px-2.5 py-1 rounded-lg bg-neo-bright/20 text-neo-bright text-xs font-extrabold animate-pulse" data-i18n="tab_game_tag">PLAY NOW</span>
+            </div>
+            <h3 class="font-display font-extrabold text-xl text-white mb-2" data-i18n="tab_game_title">Menu Kuis / Mini Games</h3>
+            <p class="text-sm text-gray-300 leading-relaxed" data-i18n="tab_game_desc">
+              Seberapa NCTzen Kamu? Tes seberapa akurat instingmu buat nebak suara member cuma dari tawa mereka!
+            </p>
+          </button>
+        </div>
+
+        <!-- ========== PANEL A: COMEBACK TRACKER (JADWAL) ========== -->
+        <div id="panel-jadwal" class="feature-panel glass-panel rounded-3xl p-6 sm:p-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neo-border">
+            <div>
+              <h3 class="font-display font-extrabold text-2xl text-neo-green" data-i18n="sched_header">📅 Jadwal Halal & Haram Terlewat!</h3>
+              <p class="text-sm text-gray-400 mt-1" data-i18n="sched_sub">Klik tombol lonceng untuk memasang pengingat agar tidak telat war tiket atau streaming!</p>
+            </div>
+            <!-- Filter Unit -->
+            <div class="flex flex-wrap gap-2">
+              <button onclick="filterSchedule('ALL')" class="sched-filter active px-3.5 py-1.5 rounded-xl text-xs font-bold bg-neo-green text-neo-dark">ALL UNITS</button>
+              <button onclick="filterSchedule('NCT 127')" class="sched-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-neo-dark border border-neo-u127/50 text-neo-u127 hover:bg-neo-u127 hover:text-white transition">NCT 127</button>
+              <button onclick="filterSchedule('NCT DREAM')" class="sched-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-neo-dark border border-neo-dream/50 text-neo-dream hover:bg-neo-dream hover:text-neo-dark transition">NCT DREAM</button>
+              <button onclick="filterSchedule('WayV')" class="sched-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-neo-dark border border-neo-wayv/50 text-neo-wayv hover:bg-neo-wayv hover:text-white transition">WayV</button>
+              <button onclick="filterSchedule('NCT WISH')" class="sched-filter px-3.5 py-1.5 rounded-xl text-xs font-bold bg-neo-dark border border-neo-wish/50 text-neo-wish hover:bg-neo-wish hover:text-white transition">NCT WISH</button>
+            </div>
+          </div>
+
+          <div id="schedule-list" class="mt-6 grid sm:grid-cols-2 gap-4">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- ========== PANEL B: NEO-GALLERY ========== -->
+        <div id="panel-galeri" class="feature-panel hidden glass-panel rounded-3xl p-6 sm:p-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neo-border">
+            <div>
+              <h3 class="font-display font-extrabold text-2xl text-neo-green" data-i18n="gal_header">📸 Neo-Gallery: Zona Rawan Oleng</h3>
+              <p class="text-sm text-gray-400 mt-1" data-i18n="gal_sub">Klik kartu era untuk melihat detail konsep dan kirim reaksi hati!</p>
+            </div>
+            <span class="px-3.5 py-1.5 rounded-xl bg-neo-green/10 border border-neo-green/30 text-neo-green text-xs font-bold">OT21 / OT23 / OT26 APPROVED 💚</span>
+          </div>
+
+          <div id="gallery-grid" class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- ========== PANEL C: MINI GAMES ("SEBERAPA NCTZEN KAMU?") ========== -->
+        <div id="panel-game" class="feature-panel hidden glass-panel rounded-3xl p-6 sm:p-8">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neo-border">
+            <div>
+              <h3 class="font-display font-extrabold text-2xl text-neo-green" data-i18n="game_header">🎮 Seberapa NCTzen Kamu?</h3>
+              <p class="text-sm text-gray-400 mt-1" data-i18n="game_sub">Pilih mode permainan di bawah untuk menguji insting Czennie kamu!</p>
+            </div>
+            <!-- Game Mode Switcher -->
+            <div class="flex gap-2 bg-neo-dark p-1.5 rounded-2xl border border-neo-border">
+              <button onclick="switchGameMode('quiz')" id="gmode-quiz" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-neo-green text-neo-dark transition" data-i18n="game_mode_quiz">
+                🔊 Kuis Tebak Tawa & Trivia
+              </button>
+              <button onclick="switchGameMode('catch')" id="gmode-catch" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-gray-300 hover:text-white transition" data-i18n="game_mode_catch">
+                ⚡ Tangkap Neo Bong
+              </button>
+            </div>
+          </div>
+
+          <!-- GAME 1: KUIS TEBAK TAWA & TRIVIA NCT -->
+          <div id="game-quiz-container" class="mt-6 max-w-2xl mx-auto">
+            <div id="quiz-box" class="bg-neo-dark/90 border border-neo-border rounded-3xl p-6 sm:p-8">
+              <!-- Quiz Header Progress -->
+              <div class="flex items-center justify-between text-xs font-bold text-gray-400 mb-4">
+                <span id="quiz-progress">Pertanyaan 1 / 5</span>
+                <span class="text-neo-green"><span data-i18n="game_score">Skor</span>: <span id="quiz-score">0</span></span>
+              </div>
+
+              <!-- Sound Wave & Play Laugh Clue Button -->
+              <div class="p-5 rounded-2xl bg-neo-card border border-neo-green/30 text-center mb-6">
+                <button onclick="playLaughClueSound()" class="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-neo-green hover:bg-neo-bright text-neo-dark font-extrabold text-sm shadow-lg shadow-neo-green/20 active:scale-95 transition">
+                  <span>🔊</span>
+                  <span data-i18n="quiz_play_sound">Putar Efek Nada / Tawa Khas</span>
+                </button>
+                <p id="quiz-clue-text" class="mt-3 text-sm sm:text-base font-semibold text-neo-green italic">
+                  "Ha-ha-ha nyaring penuh semangat yang langsung bikin satu ruangan ikut ketawa!"
+                </p>
+              </div>
+
+              <!-- Question -->
+              <h4 id="quiz-question" class="font-display font-bold text-lg sm:text-xl text-white mb-5">
+                Siapakah pemilik tawa ikonik di atas?
+              </h4>
+
+              <!-- Options -->
+              <div id="quiz-options" class="grid sm:grid-cols-2 gap-3">
+                <!-- Options injected via JS -->
+              </div>
+
+              <!-- Feedback Banner -->
+              <div id="quiz-feedback" class="hidden mt-5 p-4 rounded-2xl text-sm font-semibold"></div>
+            </div>
+
+            <!-- Quiz Result Screen -->
+            <div id="quiz-result" class="hidden bg-neo-dark/95 border-2 border-neo-green rounded-3xl p-8 text-center">
+              <div class="text-5xl mb-3">🏆💚</div>
+              <h4 class="font-display font-extrabold text-2xl sm:text-3xl text-white mb-2" id="quiz-rank-title">Sijeuni Sejati OT26!</h4>
+              <p class="text-neo-green font-bold text-lg mb-4" id="quiz-final-score">Skor Akhir: 100 / 100</p>
+              <p class="text-gray-300 text-sm sm:text-base max-w-md mx-auto mb-6" id="quiz-rank-desc">
+                Insting NCTzen kamu luar biasa tajam! Bahkan dari ketawanya aja kamu udah hafal luar kepala.
+              </p>
+              <button onclick="resetQuiz()" class="px-6 py-3 rounded-2xl bg-neo-green text-neo-dark font-extrabold hover:bg-neo-bright transition" data-i18n="quiz_restart">
+                Main Lagi 🔄
+              </button>
+            </div>
+          </div>
+
+          <!-- GAME 2: CATCH THE NEO BONG (REFLEX ARCADE) -->
+          <div id="game-catch-container" class="hidden mt-6 max-w-2xl mx-auto">
+            <div class="bg-neo-dark/90 border border-neo-border rounded-3xl p-6">
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <div class="flex items-center gap-4">
+                  <div class="px-3.5 py-1.5 rounded-xl bg-neo-card border border-neo-border text-sm font-bold">
+                    ⏱️ <span id="catch-timer">20</span>s
+                  </div>
+                  <div class="px-3.5 py-1.5 rounded-xl bg-neo-card border border-neo-green/40 text-sm font-bold text-neo-green">
+                    💚 <span data-i18n="game_score">Skor</span>: <span id="catch-score">0</span>
+                  </div>
+                </div>
+                <button id="catch-start-btn" onclick="startCatchGame()" class="px-5 py-2 rounded-xl bg-neo-green hover:bg-neo-bright text-neo-dark font-extrabold text-sm transition" data-i18n="catch_start">
+                  Mulai Tangkap! 🚀
+                </button>
+              </div>
+
+              <!-- 3x3 Lightstick Grid -->
+              <div id="catch-grid" class="grid grid-cols-3 gap-3 sm:gap-4 aspect-square max-w-sm mx-auto bg-neo-card/70 p-4 rounded-3xl border border-neo-border">
+                <!-- 9 holes rendered by JS -->
+              </div>
+              <p id="catch-status" class="text-center text-xs sm:text-sm text-gray-400 mt-4" data-i18n="catch_hint">
+                Klik Neo Bong hijau yang menyala secepat mungkin dalam 20 detik! Hindari bom merah!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4. NEO-WALL (GUESTBOOK / FAN WALL) ================= -->
+    <section id="neowall" class="py-16 sm:py-24 border-t border-neo-border/60">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="inline-block px-3.5 py-1.5 rounded-xl bg-neo-green/10 border border-neo-green/30 text-neo-green text-xs font-bold uppercase tracking-wider mb-3" data-i18n="wall_badge">
+            Komunitas Czennie
+          </span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-white" data-i18n="wall_title">
+            Neo-Wall: Ruang Curhat & Teriakan Histeris NCTzen
+          </h2>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+          <!-- Form Input Sticky Note -->
+          <div class="lg:col-span-5 glass-panel rounded-3xl p-6 sm:p-7 sticky top-24">
+            <form id="wall-form" onsubmit="submitWallMessage(event)" class="space-y-4">
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5" data-i18n="wall_name_label">Nickname Czennie</label>
+                <input type="text" id="wall-name" required maxlength="30" placeholder="Contoh: Istri Sah Mark Lee" class="w-full px-4 py-3 rounded-2xl bg-neo-dark border border-neo-border focus:border-neo-green focus:outline-none text-white text-sm" />
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5" data-i18n="wall_unit_label">Unit Favorit</label>
+                <select id="wall-unit" class="w-full px-4 py-3 rounded-2xl bg-neo-dark border border-neo-border focus:border-neo-green focus:outline-none text-white text-sm">
+                  <option value="OT26 💚">All Units / OT26 💚</option>
+                  <option value="NCT 127 🔥">NCT 127 🔥</option>
+                  <option value="NCT DREAM 🩵">NCT DREAM 🩵</option>
+                  <option value="WayV 🩷">WayV 🩷</option>
+                  <option value="NCT WISH ⭐">NCT WISH ⭐</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5" data-i18n="wall_msg_label">Pesan / Teriakan Hati</label>
+                <textarea id="wall-message" required rows="4" maxlength="220" data-i18n-placeholder="wall_placeholder" placeholder="Tulis pesan cintamu di sini (atau curhat seberapa sedihnya kamu karena gak dapet tiket konser)..." class="w-full px-4 py-3 rounded-2xl bg-neo-dark border border-neo-border focus:border-neo-green focus:outline-none text-white text-sm resize-none"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-neo-green to-neo-bright text-neo-dark font-extrabold text-base shadow-lg shadow-neo-green/20 hover:scale-[1.02] active:scale-95 transition" data-i18n="wall_submit">
+                Kirim Teriakan Hati 💌
+              </button>
+            </form>
+          </div>
+
+          <!-- Sticky Notes Wall Grid -->
+          <div class="lg:col-span-7">
+            <div id="wall-posts" class="grid sm:grid-cols-2 gap-4">
+              <!-- Posts rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= 5. FOOTER ================= -->
+  <footer class="border-t border-neo-border bg-neo-card/80 py-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+      <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-neo-green/15 border border-neo-green/40 text-neo-green font-display font-extrabold text-lg">
+        NCT
+      </div>
+      <p class="font-display font-bold text-lg sm:text-xl text-white" data-i18n="footer_closing">
+        To the World, disini kita bersatu! Keep supporting NCT, Czennie! 💚✨
+      </p>
+      <p class="text-xs sm:text-sm text-gray-400" data-i18n="footer_copyright">
+        © 2026 | Dibuat dengan penuh cinta, kopi, dan halusinasi tingkat tinggi oleh sesama NCTzen.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Modal for Neo-Gallery Preview -->
+  <div id="gallery-modal" onclick="closeGalleryModal(event)" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-neo-card border border-neo-green/50 rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl" onclick="event.stopPropagation()">
+      <button onclick="closeGalleryModal()" class="absolute top-4 right-4 w-9 h-9 rounded-xl bg-white/10 hover:bg-neo-green hover:text-neo-dark flex items-center justify-center font-bold transition">✕</button>
+      <div id="modal-visual-box" class="w-full h-44 rounded-2xl mb-5 flex flex-col items-center justify-center p-4 text-center"></div>
+      <span id="modal-unit-badge" class="inline-block px-3 py-1 rounded-lg text-xs font-extrabold mb-2"></span>
+      <h3 id="modal-title" class="font-display font-extrabold text-2xl text-white mb-2"></h3>
+      <p id="modal-desc" class="text-sm text-gray-300 leading-relaxed mb-5"></p>
+      <button onclick="sendHeartReaction()" class="w-full py-3 rounded-2xl bg-neo-green text-neo-dark font-extrabold text-sm hover:bg-neo-bright transition">
+        💚 Kirim Cinta & Oleng Bersama!
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. TRANSLATION DICTIONARY (ID <-> EN)
+    // ==========================================
+    let currentLang = 'id';
+
+    const translations = {
+      id: {
+        nav_easter_hint: 'Klik logo = Easter Egg 🔊',
+        nav_home: 'Beranda',
+        nav_about: 'Profil',
+        nav_features: 'Fitur & Game',
+        nav_wall: 'Neo-Wall',
+        hero_badge: 'NEO CULTURE TECHNOLOGY • FANBASE HUB',
+        hero_headline: 'Selamat Datang di Markas NCTzen Paling Seru! Neo-Zone Resmi Dibuka 💚',
+        hero_subheadline: 'Tempat nongkrong digital buat kamu yang hafal semua member, gak pernah absen streaming, dan siap halu bareng setiap hari.',
+        hero_cta_primary: 'Masuk ke Neo-Zone 🚀',
+        hero_cta_secondary: 'Mulai Jelajah Sekarang ✨',
+        unit_127_tag: 'Neo Seoul Vibes 🔥',
+        unit_dream_tag: 'Yo Dream! 7DREAM 🩵',
+        unit_wayv_tag: 'WayZenNi Power 🩷',
+        unit_wish_tag: 'Fresh & Dreamy ⭐',
+        about_badge: 'Tentang Neo-Zone',
+        about_title: 'Dari NCTzen, Oleh NCTzen, Untuk Semua Czennie di Seluruh Dunia!',
+        about_intro: '"Siapa kita? Kita adalah sekumpulan NCTzen yang kecanduan suara high note Taeil, senyuman Haechan, dan interaksi random Mark & Johnny di 24h Relay Cam."',
+        about_mission: 'Misi kita cuma satu: Bikin hari-hari kamu lebih berwarna dengan update NCT 24/7 tanpa bikin bosan!',
+        features_badge: 'Zona Interaktif',
+        features_title: 'Jelajahi Wahana Seru Neo-Zone',
+        tab_schedule_tag: 'TRACKER',
+        tab_schedule_title: 'Menu Jadwal (Comeback Tracker)',
+        tab_schedule_desc: 'Jadwal Halal & Haram Terlewat! Jangan sampai ketinggalan teaser, comeback, atau konser oppa-oppa kesayangan kita.',
+        tab_gallery_tag: 'VISUAL',
+        tab_gallery_title: 'Menu Galeri (Neo-Gallery)',
+        tab_gallery_desc: 'Kumpulan visual berbahaya yang siap bikin kamu oleng ke semua member (OT21/OT23/OT26 approved!).',
+        tab_game_tag: 'PLAY NOW',
+        tab_game_title: 'Menu Kuis / Mini Games',
+        tab_game_desc: 'Seberapa NCTzen Kamu? Tes seberapa akurat instingmu buat nebak suara member cuma dari tawa mereka!',
+        sched_header: '📅 Jadwal Halal & Haram Terlewat!',
+        sched_sub: 'Klik tombol lonceng untuk memasang pengingat agar tidak telat war tiket atau streaming!',
+        gal_header: '📸 Neo-Gallery: Zona Rawan Oleng',
+        gal_sub: 'Klik kartu era untuk melihat detail konsep dan kirim reaksi hati!',
+        game_header: '🎮 Seberapa NCTzen Kamu?',
+        game_sub: 'Pilih mode permainan di bawah untuk menguji insting Czennie kamu!',
+        game_mode_quiz: '🔊 Kuis Tebak Tawa & Trivia',
+        game_mode_catch: '⚡ Tangkap Neo Bong',
+        game_score: 'Skor',
+        quiz_play_sound: 'Putar Efek Nada / Tawa Khas',
+        quiz_restart: 'Main Lagi 🔄',
+        catch_start: 'Mulai Tangkap! 🚀',
+        catch_hint: 'Klik Neo Bong hijau yang menyala secepat mungkin dalam 20 detik! Hindari bom merah!',
+        wall_badge: 'Komunitas Czennie',
+        wall_title: 'Neo-Wall: Ruang Curhat & Teriakan Histeris NCTzen',
+        wall_name_label: 'Nickname Czennie',
+        wall_unit_label: 'Unit Favorit',
+        wall_msg_label: 'Pesan / Teriakan Hati',
+        wall_placeholder: 'Tulis pesan cintamu di sini (atau curhat seberapa sedihnya kamu karena gak dapet tiket konser)...',
+        wall_submit: 'Kirim Teriakan Hati 💌',
+        footer_closing: 'To the World, disini kita bersatu! Keep supporting NCT, Czennie! 💚✨',
+        footer_copyright: '© 2026 | Dibuat dengan penuh cinta, kopi, dan halusinasi tingkat tinggi oleh sesama NCTzen.'
+      },
+      en: {
+        nav_easter_hint: 'Click logo = Easter Egg 🔊',
+        nav_home: 'Home',
+        nav_about: 'About Us',
+        nav_features: 'Features & Games',
+        nav_wall: 'Neo-Wall',
+        hero_badge: 'NEO CULTURE TECHNOLOGY • FANBASE HUB',
+        hero_headline: 'Welcome to the Most Fun NCTzen HQ! Neo-Zone is Officially Open 💚',
+        hero_subheadline: 'The ultimate digital hangout for those who memorized every member, never miss streaming goals, and daydream together daily.',
+        hero_cta_primary: 'Enter Neo-Zone 🚀',
+        hero_cta_secondary: 'Start Exploring Now ✨',
+        unit_127_tag: 'Neo Seoul Vibes 🔥',
+        unit_dream_tag: 'Yo Dream! 7DREAM 🩵',
+        unit_wayv_tag: 'WayZenNi Power 🩷',
+        unit_wish_tag: 'Fresh & Dreamy ⭐',
+        about_badge: 'About Neo-Zone',
+        about_title: 'By NCTzens, For NCTzens, Uniting Czennies Around The World!',
+        about_intro: '"Who are we? We are a bunch of NCTzens addicted to Taeil’s high notes, Haechan’s sunshine smile, and Mark & Johnny’s random antics on 24h Relay Cam."',
+        about_mission: 'We have one mission: Make your days brighter with 24/7 NCT updates without ever getting boring!',
+        features_badge: 'Interactive Zone',
+        features_title: 'Explore Fun Attractions in Neo-Zone',
+        tab_schedule_tag: 'TRACKER',
+        tab_schedule_title: 'Schedule Menu (Comeback Tracker)',
+        tab_schedule_desc: 'Sacred & Unmissable Schedules! Never miss a single teaser, comeback, or concert from our beloved boys.',
+        tab_gallery_tag: 'VISUALS',
+        tab_gallery_title: 'Gallery Menu (Neo-Gallery)',
+        tab_gallery_desc: 'A collection of dangerous visuals ready to make you bias-wrecked by every member (OT21/OT23/OT26 approved!).',
+        tab_game_tag: 'PLAY NOW',
+        tab_game_title: 'Quiz / Mini Games Menu',
+        tab_game_desc: 'How NCTzen Are You? Test how sharp your instincts are at guessing members just from their iconic laughs!',
+        sched_header: '📅 Unmissable Comeback & Concert Tracker!',
+        sched_sub: 'Click the bell icon to set a reminder so you never miss ticket wars or MV streaming!',
+        gal_header: '📸 Neo-Gallery: Dangerously Bias-Wrecking Zone',
+        gal_sub: 'Click any era card to view concept details and send heart reactions!',
+        game_header: '🎮 How NCTzen Are You?',
+        game_sub: 'Choose a game mode below to test your true Czennie instincts!',
+        game_mode_quiz: '🔊 Guess the Laugh & Trivia',
+        game_mode_catch: '⚡ Catch the Neo Bong',
+        game_score: 'Score',
+        quiz_play_sound: 'Play Iconic Laugh / Synth Clue',
+        quiz_restart: 'Play Again 🔄',
+        catch_start: 'Start Catching! 🚀',
+        catch_hint: 'Tap the glowing green Neo Bongs as fast as possible in 20 seconds! Avoid red bombs!',
+        wall_badge: 'Czennie Community',
+        wall_title: 'Neo-Wall: NCTzen Confessions & Fangirl Screams',
+        wall_name_label: 'Czennie Nickname',
+        wall_unit_label: 'Favorite Unit',
+        wall_msg_label: 'Message / Scream from the Heart',
+        wall_placeholder: 'Write your love message here (or vent about how sad you are for missing concert tickets)...',
+        wall_submit: 'Send Heart Scream 💌',
+        footer_closing: 'To the World, here we unite! Keep supporting NCT, Czennie! 💚✨',
+        footer_copyright: '© 2026 | Made with pure love, coffee, and top-tier delulu energy by fellow NCTzens.'
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'id' ? 'en' : 'id';
+      document.getElementById('lang-label').textContent = currentLang === 'id' ? 'ID 🇮🇩' : 'EN 🇺🇸';
+
+      // Update text content
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
+        }
+      });
+
+      // Update placeholders
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[currentLang][key]) {
+          el.placeholder = translations[currentLang][key];
+        }
+      });
+
+      // Re-render dynamic lists & quiz text
+      renderSchedule(currentSchedFilter);
+      renderGallery();
+      loadQuizQuestion();
+      showToast(currentLang === 'id' ? 'Bahasa diubah ke Bahasa Indonesia 🇮🇩' : 'Language switched to English 🇺🇸');
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+
+    // ==========================================
+    // 2. WEB AUDIO SYNTH & EASTER EGG ("TO THE WORLD!")
+    // ==========================================
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playNeoFanfare(pattern = [523.25, 659.25, 783.99, 1046.50]) {
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+        pattern.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = idx % 2 === 0 ? 'triangle' : 'sine';
+          osc.frequency.setValueAtTime(freq, now + idx * 0.09);
+          gain.gain.setValueAtTime(0.18, now + idx * 0.09);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.28);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(now + idx * 0.09);
+          osc.stop(now + idx * 0.09 + 0.3);
+        });
+      } catch (e) {
+        console.warn('Audio playback blocked:', e);
+      }
+    }
+
+    function triggerEasterEgg() {
+      playNeoFanfare([440, 554.37, 659.25, 880, 1108.73]);
+      spawnConfetti();
+      const shout = currentLang === 'id'
+        ? '🔊 "TO THE WORLD! WE ARE NCT!" 💚✨ Czennie energi penuh!'
+        : '🔊 "TO THE WORLD! WE ARE NCT!" 💚✨ Full Czennie energy unlocked!';
+      showToast(shout);
+    }
+
+    function spawnConfetti() {
+      const colors = ['#B2E800', '#39FF14', '#00E5FF', '#FF2E93', '#FFFFFF'];
+      for (let i = 0; i < 28; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece rounded-sm';
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.width = (Math.random() * 8 + 6) + 'px';
+        el.style.height = (Math.random() * 8 + 6) + 'px';
+        el.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        el.style.animationDuration = (Math.random() * 1.5 + 1.5) + 's';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 3200);
+      }
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'pointer-events-auto bg-neo-card border border-neo-green text-white px-4 py-3.5 rounded-2xl shadow-2xl shadow-neo-green/25 flex items-center justify-between gap-3 text-xs sm:text-sm font-bold transition-all transform translate-y-0';
+      toast.innerHTML = `<span>${message}</span><button onclick="this.parentElement.remove()" class="text-neo-green hover:text-white ml-2">✕</button>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        if (toast.parentElement) toast.remove();
+      }, 4200);
+    }
+
+    // ==========================================
+    // 3. FEATURE TABS & SCHEDULE TRACKER
+    // ==========================================
+    function switchFeatureTab(tabName) {
+      document.querySelectorAll('.feature-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById(`panel-${tabName}`).classList.remove('hidden');
+
+      document.querySelectorAll('.feature-tab-btn').forEach(btn => {
+        btn.classList.remove('border-2', 'border-neo-green', 'shadow-lg', 'shadow-neo-green/10');
+        btn.classList.add('border', 'border-neo-border');
+      });
+
+      const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+      activeBtn.classList.remove('border', 'border-neo-border');
+      activeBtn.classList.add('border-2', 'border-neo-green', 'shadow-lg', 'shadow-neo-green/10');
+    }
+
+    const scheduleData = [
+      { id: 1, unit: 'NCT 127', color: 'text-neo-u127 border-neo-u127/40', date: '18 NOV • 16:00 WIB', title_id: 'Teaser MV & Track Video Comeback', title_en: 'Comeback MV Teaser & Track Video', reminded: false },
+      { id: 2, unit: 'NCT DREAM', color: 'text-neo-dream border-neo-dream/40', date: '24 NOV • 18:00 WIB', title_id: '7DREAM Live Countdown & Streaming Party', title_en: '7DREAM Live Countdown & Streaming Party', reminded: true },
+      { id: 3, unit: 'WayV', color: 'text-neo-wayv border-neo-wayv/40', date: '02 DES • 19:00 WIB', title_id: 'Special Winter Fanmeeting & Stage', title_en: 'Special Winter Fanmeeting & Stage', reminded: false },
+      { id: 4, unit: 'NCT WISH', color: 'text-neo-wish border-neo-wish/40', date: '10 DES • 17:00 WIB', title_id: 'Wishful Holiday Mini Album Release', title_en: 'Wishful Holiday Mini Album Release', reminded: false }
+    ];
+
+    let currentSchedFilter = 'ALL';
+
+    function filterSchedule(unit) {
+      currentSchedFilter = unit;
+      renderSchedule(unit);
+    }
+
+    function toggleReminder(id) {
+      const item = scheduleData.find(s => s.id === id);
+      if (item) {
+        item.reminded = !item.reminded;
+        playNeoFanfare([660, 880]);
+        renderSchedule(currentSchedFilter);
+        const msg = item.reminded
+          ? (currentLang === 'id' ? `🔔 Pengingat aktif untuk ${item.unit}! Siap-siap streaming!` : `🔔 Reminder set for ${item.unit}! Ready to stream!`)
+          : (currentLang === 'id' ? `🔕 Pengingat dimatikan.` : `🔕 Reminder turned off.`);
+        showToast(msg);
+      }
+    }
+
+    function renderSchedule(filter = 'ALL') {
+      const list = document.getElementById('schedule-list');
+      const filtered = filter === 'ALL' ? scheduleData : scheduleData.filter(s => s.unit === filter);
+      list.innerHTML = filtered.map(item => `
+        <div class="p-5 rounded-2xl bg-neo-dark border ${item.color} flex items-center justify-between gap-4 hover:bg-white/[0.02] transition">
+          <div>
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class="text-xs font-extrabold px-2.5 py-0.5 rounded-md bg-white/10 ${item.color.split(' ')[0]}">${item.unit}</span>
+              <span class="text-xs text-gray-400 font-semibold">${item.date}</span>
+            </div>
+            <h4 class="font-bold text-white text-sm sm:text-base">${currentLang === 'id' ? item.title_id : item.title_en}</h4>
+          </div>
+          <button onclick="toggleReminder(${item.id})" class="p-3 rounded-xl ${item.reminded ? 'bg-neo-green text-neo-dark' : 'bg-neo-card text-gray-300 hover:text-neo-green'} font-bold text-xs transition shrink-0" title="Pengingat">
+            ${item.reminded ? '🔔 ON' : '🔕 SET'}
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // ==========================================
+    // 4. NEO-GALLERY
+    // ==========================================
+    const galleryItems = [
+      {
+        id: 1,
+        unit: 'NCT 127',
+        badgeClass: 'bg-neo-u127/20 text-neo-u127',
+        gradient: 'from-red-600/30 via-neo-dark to-neo-green/20',
+        emoji: '🔥🕺',
+        title_id: 'Era Fact Check & Walk',
+        title_en: 'Fact Check & Walk Era',
+        desc_id: 'Aura Seoul yang swag abis! Koreografi tajam dengan vokal live tanpa celah yang bikin semua Czennie teriak histeris.',
+        desc_en: 'Unmatched Seoul swag! Razor-sharp choreography and flawless live vocals leaving every Czennie breathless.'
+      },
+      {
+        id: 2,
+        unit: 'NCT DREAM',
+        badgeClass: 'bg-neo-dream/20 text-neo-dream',
+        gradient: 'from-cyan-500/30 via-neo-dark to-neo-green/20',
+        emoji: '🩵🛹',
+        title_id: 'Era ISTJ & Smoothie',
+        title_en: 'ISTJ & Smoothie Era',
+        desc_id: 'Dari konsep ceria penuh warna sampai dark charismatic 7DREAM yang sukses bikin bias list berantakan!',
+        desc_en: 'From vibrant youthful energy to dark charismatic 7DREAM that completely wrecked everyone’s bias list!'
+      },
+      {
+        id: 3,
+        unit: 'WayV',
+        badgeClass: 'bg-neo-wayv/20 text-neo-wayv',
+        gradient: 'from-pink-600/30 via-neo-dark to-purple-500/20',
+        emoji: '🩷👑',
+        title_id: 'Era On My Youth & Give Me That',
+        title_en: 'On My Youth & Give Me That Era',
+        desc_id: 'Visual pangeran klasik berpadu dengan energi panggung yang memikat dan harmonisasi vokal memukau.',
+        desc_en: 'Princely visuals combined with captivating stage presence and breathtaking vocal harmonies.'
+      },
+      {
+        id: 4,
+        unit: 'NCT WISH',
+        badgeClass: 'bg-neo-wish/20 text-neo-wish',
+        gradient: 'from-purple-500/30 via-neo-dark to-neo-bright/20',
+        emoji: '⭐🪽',
+        title_id: 'Era WISH & Steady',
+        title_en: 'WISH & Steady Era',
+        desc_id: 'Kesegaran baru di Neo-Zone! Konsep cupid & mimpi masa muda yang gemesin banget.',
+        desc_en: 'A burst of freshness in Neo-Zone! Adorable cupid & youthful dream concepts.'
+      },
+      {
+        id: 5,
+        unit: 'NCT U',
+        badgeClass: 'bg-neo-green/20 text-neo-green',
+        gradient: 'from-neo-green/30 via-neo-dark to-emerald-500/20',
+        emoji: '💚⚡',
+        title_id: 'Era Baggy Jeans & Resonance',
+        title_en: 'Baggy Jeans & Resonance Era',
+        desc_id: 'Kolaborasi unit legendaris dengan beat ikonik yang langsung terngiang di kepala seharian.',
+        desc_en: 'Legendary rotational unit anthem with iconic beats stuck in your head all day long.'
+      },
+      {
+        id: 6,
+        unit: '24H RELAY CAM',
+        badgeClass: 'bg-white/15 text-white',
+        gradient: 'from-amber-400/25 via-neo-dark to-neo-green/20',
+        emoji: '📹☕',
+        title_id: 'Momen Random 24h Relay Cam',
+        title_en: '24h Relay Cam Random Moments',
+        desc_id: 'Dari jam 3 pagi masih nge-gym sampai masak mie sambil ketawa bareng—comfort content terbaik!',
+        desc_en: 'From 3 AM gym sessions to midnight ramyeon cooking with endless laughs—peak comfort content!'
+      }
+    ];
+
+    function renderGallery() {
+      const grid = document.getElementById('gallery-grid');
+      grid.innerHTML = galleryItems.map(item => `
+        <div onclick="openGalleryModal(${item.id})" class="cursor-pointer group rounded-3xl bg-neo-dark border border-neo-border hover:border-neo-green p-5 transition transform hover:-translate-y-1">
+          <div class="h-36 rounded-2xl bg-gradient-to-br ${item.gradient} border border-white/10 flex flex-col items-center justify-center mb-4 group-hover:scale-[1.02] transition">
+            <span class="text-4xl mb-1">${item.emoji}</span>
+            <span class="text-[11px] font-bold tracking-widest uppercase text-white/80">NEO ARCHIVE</span>
+          </div>
+          <span class="inline-block px-2.5 py-0.5 rounded-md text-xs font-extrabold ${item.badgeClass} mb-2">${item.unit}</span>
+          <h4 class="font-display font-bold text-lg text-white group-hover:text-neo-green transition">
+            ${currentLang === 'id' ? item.title_id : item.title_en}
+          </h4>
+          <p class="text-xs text-gray-400 mt-1.5 line-clamp-2">
+            ${currentLang === 'id' ? item.desc_id : item.desc_en}
+          </p>
+        </div>
+      `).join('');
+    }
+
+    function openGalleryModal(id) {
+      const item = galleryItems.find(g => g.id === id);
+      if (!item) return;
+      const modal = document.getElementById('gallery-modal');
+      document.getElementById('modal-visual-box').className = `w-full h-44 rounded-2xl mb-5 flex flex-col items-center justify-center p-4 text-center bg-gradient-to-br ${item.gradient} border border-white/10`;
+      document.getElementById('modal-visual-box').innerHTML = `<span class="text-6xl mb-2">${item.emoji}</span><span class="text-xs font-extrabold tracking-widest text-neo-green">OT26 VISUAL APPROVED</span>`;
+      const badge = document.getElementById('modal-unit-badge');
+      badge.className = `inline-block px-3 py-1 rounded-lg text-xs font-extrabold mb-2 ${item.badgeClass}`;
+      badge.textContent = item.unit;
+      document.getElementById('modal-title').textContent = currentLang === 'id' ? item.title_id : item.title_en;
+      document.getElementById('modal-desc').textContent = currentLang === 'id' ? item.desc_id : item.desc_en;
+      modal.classList.remove('hidden');
+    }
+
+    function closeGalleryModal(e) {
+      if (!e || e.target.id === 'gallery-modal') {
+        document.getElementById('gallery-modal').classList.add('hidden');
+      }
+    }
+
+    function sendHeartReaction() {
+      playNeoFanfare([587.33, 880]);
+      spawnConfetti();
+      showToast(currentLang === 'id' ? '💚 Sinyal oleng terkirim! Semua member memang ganteng!' : '💚 Bias-wrecked signal sent! Every member is visuals!');
+      closeGalleryModal();
+    }
+
+    // ==========================================
+    // 5. MINI GAMES (QUIZ & CATCH THE NEO BONG)
+    // ==========================================
+    function switchGameMode(mode) {
+      const qContainer = document.getElementById('game-quiz-container');
+      const cContainer = document.getElementById('game-catch-container');
+      const btnQ = document.getElementById('gmode-quiz');
+      const btnC = document.getElementById('gmode-catch');
+
+      if (mode === 'quiz') {
+        qContainer.classList.remove('hidden');
+        cContainer.classList.add('hidden');
+        btnQ.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-neo-green text-neo-dark transition';
+        btnC.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-gray-300 hover:text-white transition';
+      } else {
+        qContainer.classList.add('hidden');
+        cContainer.classList.remove('hidden');
+        btnC.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-neo-green text-neo-dark transition';
+        btnQ.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-gray-300 hover:text-white transition';
+        initCatchGrid();
+      }
+    }
+
+    // --- GAME 1: LAUGH & TRIVIA QUIZ ---
+    const quizQuestions = [
+      {
+        clue_id: '"Ha-ha-ha nyaring penuh semangat (fullsun laugh) yang langsung bikin satu ruangan ikut ketawa!"',
+        clue_en: '"Bright, high-energy fullsun laugh that instantly makes the whole room laugh along!"',
+        q_id: 'Siapakah pemilik tawa ikonik yang dijuluki Fullsun ini?',
+        q_en: 'Who owns this iconic laugh nicknamed Fullsun?',
+        options: ['Haechan', 'Jisung', 'Ten', 'Sion'],
+        answer: 0,
+        notes: [523, 659, 784, 659, 880]
+      },
+      {
+        clue_id: '"Tawa melengking super renyah mirip frekuensi lumba-lumba (dolphin laugh)!"',
+        clue_en: '"Super crisp high-pitched laugh resembling a happy dolphin frequency!"',
+        q_id: 'Member NCT DREAM manakah yang terkenal dengan dolphin laugh-nya?',
+        q_en: 'Which NCT DREAM member is famous for his dolphin laugh?',
+        options: ['Jeno', 'Chenle', 'Jaemin', 'Renjun'],
+        answer: 1,
+        notes: [880, 1174, 1318, 1567]
+      },
+      {
+        clue_id: '"Ketawa sambil tepuk tangan heboh dan langsung jatuh dari kursi saat dengar jokes receh!"',
+        clue_en: '"Clapping loudly while laughing and nearly falling off his chair at dad jokes!"',
+        q_id: 'Siapakah member asal Kanada yang tawanya paling menular ini?',
+        q_en: 'Which Canadian-born member has this super contagious laugh?',
+        options: ['Doyoung', 'Mark', 'Taeyong', 'Kun'],
+        answer: 1,
+        notes: [440, 554, 659, 880, 659]
+      },
+      {
+        clue_id: '"Sapaan pembuka ikonik setiap kali NCT memperkenalkan diri di panggung dunia!"',
+        clue_en: '"The iconic opening greeting whenever NCT introduces themselves on stage!"',
+        q_id: 'Lengkapi salam ikonik NCT: "_____, here we are NCT!"',
+        q_en: 'Complete NCT’s iconic greeting: "_____, here we are NCT!"',
+        options: ['Into the Neo', 'To the World', 'Around the Globe', 'Welcome Czennie'],
+        answer: 1,
+        notes: [523, 659, 784, 1046]
+      },
+      {
+        clue_id: '"Suara tinggi (high note) yang bikin merinding di lagu-lagu ballad maupun title track NCT!"',
+        clue_en: '"Goosebump-inducing high notes in both NCT ballads and title tracks!"',
+        q_id: 'Apa warna resmi kebanggaan fandom NCTzen & Meumwonbom?',
+        q_en: 'What is the official pride color of NCTzen & Meumwonbom?',
+        options: ['Pearl Neo Champagne 💚', 'Sapphire Blue 💙', 'Rose Gold 🩷', 'Cosmic Violet 💜'],
+        answer: 0,
+        notes: [659, 784, 987, 1174]
+      }
+    ];
+
+    let currentQIndex = 0;
+    let quizScore = 0;
+    let quizAnswered = false;
+
+    function playLaughClueSound() {
+      const q = quizQuestions[currentQIndex];
+      if (q) playNeoFanfare(q.notes);
+    }
+
+    function loadQuizQuestion() {
+      const q = quizQuestions[currentQIndex];
+      quizAnswered = false;
+      document.getElementById('quiz-progress').textContent = currentLang === 'id'
+        ? `Pertanyaan ${currentQIndex + 1} / ${quizQuestions.length}`
+        : `Question ${currentQIndex + 1} / ${quizQuestions.length}`;
+      document.getElementById('quiz-score').textContent = quizScore;
+      document.getElementById('quiz-clue-text').textContent = currentLang === 'id' ? q.clue_id : q.clue_en;
+      document.getElementById('quiz-question').textContent = currentLang === 'id' ? q.q_id : q.q_en;
+      document.getElementById('quiz-feedback').classList.add('hidden');
+
+      const optionsBox = document.getElementById('quiz-options');
+      optionsBox.innerHTML = q.options.map((opt, i) => `
+        <button onclick="selectQuizAnswer(${i})" class="quiz-opt-btn p-4 rounded-2xl bg-neo-card border border-neo-border hover:border-neo-green text-left font-bold text-sm sm:text-base text-white transition">
+          ${String.fromCharCode(65 + i)}. ${opt}
+        </button>
+      `).join('');
+    }
+
+    function selectQuizAnswer(selectedIdx) {
+      if (quizAnswered) return;
+      quizAnswered = true;
+      const q = quizQuestions[currentQIndex];
+      const buttons = document.querySelectorAll('.quiz-opt-btn');
+      const feedback = document.getElementById('quiz-feedback');
+      feedback.classList.remove('hidden');
+
+      if (selectedIdx === q.answer) {
+        quizScore += 20;
+        document.getElementById('quiz-score').textContent = quizScore;
+        buttons[selectedIdx].classList.add('bg-neo-green', 'text-neo-dark', 'border-neo-green');
+        feedback.className = 'mt-5 p-4 rounded-2xl text-sm font-bold bg-neo-green/20 border border-neo-green text-neo-green';
+        feedback.textContent = currentLang === 'id' ? '✅ Bener banget! Insting Czennie kamu tajam!' : '✅ Spot on! Your Czennie instincts are razor sharp!';
+        playNeoFanfare([659.25, 880]);
+      } else {
+        buttons[selectedIdx].classList.add('bg-red-500/30', 'border-red-500', 'text-red-200');
+        buttons[q.answer].classList.add('bg-neo-green/30', 'border-neo-green', 'text-neo-green');
+        feedback.className = 'mt-5 p-4 rounded-2xl text-sm font-bold bg-red-500/15 border border-red-500/50 text-red-300';
+        feedback.textContent = currentLang === 'id'
+          ? `❌ Ups meleset! Jawaban yang benar: ${q.options[q.answer]}`
+          : `❌ Oops! The correct answer was: ${q.options[q.answer]}`;
+        playNeoFanfare([220, 180]);
+      }
+
+      setTimeout(() => {
+        currentQIndex++;
+        if (currentQIndex < quizQuestions.length) {
+          loadQuizQuestion();
+        } else {
+          showQuizResults();
+        }
+      }, 1300);
+    }
+
+    function showQuizResults() {
+      document.getElementById('quiz-box').classList.add('hidden');
+      const res = document.getElementById('quiz-result');
+      res.classList.remove('hidden');
+      document.getElementById('quiz-final-score').textContent = currentLang === 'id'
+        ? `Skor Akhir: ${quizScore} / 100`
+        : `Final Score: ${quizScore} / 100`;
+
+      const titleEl = document.getElementById('quiz-rank-title');
+      const descEl = document.getElementById('quiz-rank-desc');
+      if (quizScore >= 80) {
+        titleEl.textContent = currentLang === 'id' ? '👑 Sijeuni Presiden OT26!' : '👑 OT26 Sijeuni President!';
+        descEl.textContent = currentLang === 'id'
+          ? 'Luar biasa! Kamu hafal semua tawa member sampai ke frekuensi lumba-lumba Chenle!'
+          : 'Incredible! You know every member laugh down to Chenle’s dolphin frequency!';
+        spawnConfetti();
+      } else if (quizScore >= 40) {
+        titleEl.textContent = currentLang === 'id' ? '💚 Czennie Aktif Streaming!' : '💚 Active Streaming Czennie!';
+        descEl.textContent = currentLang === 'id'
+          ? 'Keren! Nonton 24h Relay Cam sekali lagi pasti langsung skor sempurna!'
+          : 'Awesome! Watch one more 24h Relay Cam and you will get a perfect score!';
+      } else {
+        titleEl.textContent = currentLang === 'id' ? '🌱 Baby Czennie Baru Masuk Neo-Zone!' : '🌱 Baby Czennie New to Neo-Zone!';
+        descEl.textContent = currentLang === 'id'
+          ? 'Selamat datang di fandom! Yuk marathon konten NCT biar makin kenal semuanya!'
+          : 'Welcome to the fandom! Let’s binge NCT content to get to know everyone!';
+      }
+    }
+
+    function resetQuiz() {
+      currentQIndex = 0;
+      quizScore = 0;
+      document.getElementById('quiz-result').classList.add('hidden');
+      document.getElementById('quiz-box').classList.remove('hidden');
+      loadQuizQuestion();
+    }
+
+    // --- GAME 2: CATCH THE NEO BONG ---
+    let catchScore = 0;
+    let catchTime = 20;
+    let catchInterval = null;
+    let spawnInterval = null;
+    let catchRunning = false;
+
+    function initCatchGrid() {
+      const grid = document.getElementById('catch-grid');
+      grid.innerHTML = '';
+      for (let i = 0; i < 9; i++) {
+        const cell = document.createElement('button');
+        cell.type = 'button';
+        cell.id = `catch-cell-${i}`;
+        cell.className = 'rounded-2xl bg-neo-dark border border-neo-border flex items-center justify-center text-3xl sm:text-4xl transition active:scale-90 select-none';
+        cell.innerHTML = '<span class="opacity-20 text-xl">•</span>';
+        grid.appendChild(cell);
+      }
+    }
+
+    function startCatchGame() {
+      if (catchRunning) return;
+      catchRunning = true;
+      catchScore = 0;
+      catchTime = 20;
+      document.getElementById('catch-score').textContent = catchScore;
+      document.getElementById('catch-timer').textContent = catchTime;
+      document.getElementById('catch-start-btn').disabled = true;
+      document.getElementById('catch-start-btn').classList.add('opacity-50');
+      initCatchGrid();
+
+      catchInterval = setInterval(() => {
+        catchTime--;
+        document.getElementById('catch-timer').textContent = catchTime;
+        if (catchTime <= 0) {
+          endCatchGame();
+        }
+      }, 1000);
+
+      spawnInterval = setInterval(() => {
+        if (!catchRunning) return;
+        for (let i = 0; i < 9; i++) {
+          const c = document.getElementById(`catch-cell-${i}`);
+          c.innerHTML = '<span class="opacity-20 text-xl">•</span>';
+          c.className = 'rounded-2xl bg-neo-dark border border-neo-border flex items-center justify-center text-3xl sm:text-4xl transition active:scale-90 select-none';
+          c.onclick = null;
+        }
+
+        const randIdx = Math.floor(Math.random() * 9);
+        const isBomb = Math.random() < 0.22;
+        const target = document.getElementById(`catch-cell-${randIdx}`);
+
+        if (isBomb) {
+          target.innerHTML = '💣';
+          target.className = 'rounded-2xl bg-red-500/20 border-2 border-red-500 flex items-center justify-center text-3xl sm:text-4xl transition active:scale-90 cursor-pointer';
+          target.onclick = () => {
+            catchScore = Math.max(0, catchScore - 15);
+            document.getElementById('catch-score').textContent = catchScore;
+            playNeoFanfare([180, 140]);
+            target.innerHTML = '💥';
+            target.onclick = null;
+          };
+        } else {
+          target.innerHTML = '💚';
+          target.className = 'rounded-2xl bg-neo-green/25 border-2 border-neo-bright shadow-lg shadow-neo-green/30 flex items-center justify-center text-3xl sm:text-4xl transition active:scale-90 cursor-pointer';
+          target.onclick = () => {
+            catchScore += 10;
+            document.getElementById('catch-score').textContent = catchScore;
+            playNeoFanfare([784, 1046]);
+            target.innerHTML = '✨';
+            target.onclick = null;
+          };
+        }
+      }, 720);
+    }
+
+    function endCatchGame() {
+      catchRunning = false;
+      clearInterval(catchInterval);
+      clearInterval(spawnInterval);
+      initCatchGrid();
+      const btn = document.getElementById('catch-start-btn');
+      btn.disabled = false;
+      btn.classList.remove('opacity-50');
+      spawnConfetti();
+      showToast(currentLang === 'id'
+        ? `🎉 Waktu habis! Kamu menangkap ${catchScore} poin Neo Bong!`
+        : `🎉 Time's up! You caught ${catchScore} Neo Bong points!`);
+    }
+
+    // ==========================================
+    // 6. NEO-WALL (GUESTBOOK WITH LOCALSTORAGE)
+    // ==========================================
+    const defaultWallPosts = [
+      {
+        id: 101,
+        name: 'Calon Mantu SM',
+        unit: 'NCT 127 🔥',
+        message: 'Ya Allah semoga tahun ini menang war tiket konser 127 dan dapet soundcheck, aamiin paling kenceng!! 💚😭',
+        likes: 26,
+        time: '2m ago'
+      },
+      {
+        id: 102,
+        name: 'Penyembah Tawa Haechan',
+        unit: 'NCT DREAM 🩵',
+        message: 'Tiap capek kuliah pasti muter 24h Relay Cam sama video ketawanya Haechan & Chenle, langsung sembuh!',
+        likes: 19,
+        time: '15m ago'
+      },
+      {
+        id: 103,
+        name: 'WayZenNi Garis Keras',
+        unit: 'WayV 🩷',
+        message: 'To the World! Bangga banget sama semua unit NCT, semoga sehat terus dan makin sukses di tahun 2026! ✨',
+        likes: 34,
+        time: '1h ago'
+      }
+    ];
+
+    function getWallPosts() {
+      try {
+        const saved = localStorage.getItem('neozone_wall_posts');
+        return saved ? JSON.parse(saved) : defaultWallPosts;
+      } catch (e) {
+        return defaultWallPosts;
+      }
+    }
+
+    function saveWallPosts(posts) {
+      try {
+        localStorage.setItem('neozone_wall_posts', JSON.stringify(posts));
+      } catch (e) {
+        console.warn('LocalStorage unavailable');
+      }
+    }
+
+    function renderWallPosts() {
+      const posts = getWallPosts();
+      const container = document.getElementById('wall-posts');
+      container.innerHTML = posts.map(post => `
+        <div class="p-5 rounded-3xl bg-neo-card border border-neo-border hover:border-neo-green/50 transition flex flex-col justify-between gap-4 shadow-md">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2.5">
+              <span class="font-display font-bold text-sm text-white truncate">${escapeHTML(post.name)}</span>
+              <span class="px-2.5 py-0.5 rounded-lg bg-neo-green/15 text-neo-green text-[11px] font-extrabold shrink-0">${escapeHTML(post.unit)}</span>
+            </div>
+            <p class="text-sm text-gray-200 leading-relaxed break-words">"${escapeHTML(post.message)}"</p>
+          </div>
+          <div class="flex items-center justify-between pt-3 border-t border-neo-border/60 text-xs text-gray-400">
+            <span>${post.time}</span>
+            <button onclick="likeWallPost(${post.id})" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-neo-dark hover:bg-neo-green/20 text-neo-green font-bold transition active:scale-90">
+              <span>💚</span> <span>${post.likes}</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function submitWallMessage(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById('wall-name');
+      const unitInput = document.getElementById('wall-unit');
+      const msgInput = document.getElementById('wall-message');
+
+      const newPost = {
+        id: Date.now(),
+        name: nameInput.value.trim(),
+        unit: unitInput.value,
+        message: msgInput.value.trim(),
+        likes: 1,
+        time: currentLang === 'id' ? 'Baru saja' : 'Just now'
+      };
+
+      const posts = getWallPosts();
+      posts.unshift(newPost);
+      saveWallPosts(posts);
+      renderWallPosts();
+
+      nameInput.value = '';
+      msgInput.value = '';
+      playNeoFanfare([523.25, 659.25, 1046.5]);
+      spawnConfetti();
+      showToast(currentLang === 'id' ? '💌 Teriakan hatimu berhasil ditempel di Neo-Wall!' : '💌 Your heart scream has been pinned to Neo-Wall!');
+    }
+
+    function likeWallPost(id) {
+      const posts = getWallPosts();
+      const target = posts.find(p => p.id === id);
+      if (target) {
+        target.likes += 1;
+        saveWallPosts(posts);
+        renderWallPosts();
+        playNeoFanfare([880]);
+      }
+    }
+
+    function escapeHTML(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // ==========================================
+    // INITIALIZE ON LOAD
+    // ==========================================
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSchedule('ALL');
+      renderGallery();
+      loadQuizQuestion();
+      initCatchGrid();
+      renderWallPosts();
+    });
+  </script>
+</body>
+</html>
